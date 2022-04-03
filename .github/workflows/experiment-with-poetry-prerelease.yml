@@ -1,0 +1,21 @@
+name: Poetry prerelease
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install poetry
+      # Perhaps #4852's env support in 1.2.0b1 will help?
+      # In re: https://github.com/python-poetry/poetry/pull/4852
+      run: pipx install poetry --pip-args=--pre
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+        cache: 'poetry'
+    - run: poetry install
+    - run: python -V
+    - run: poetry run python -V
+    - run: poetry run pytest

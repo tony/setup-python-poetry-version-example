@@ -1,0 +1,23 @@
+name: Example w/ install-poetry.py
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install poetry
+      run: |
+        curl -O -sSL https://install.python-poetry.org/install-poetry.py
+        python install-poetry.py -y --version 1.1.12
+        echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
+        rm install-poetry.py
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+        cache: 'poetry'
+    - run: poetry install
+    - run: python -V
+    - run: poetry run python -V
+    - run: poetry run pytest

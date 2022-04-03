@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "setup-python-poetry-version-example"
+version = "0.1.0"
+description = ""
+authors = ["Tony Narlock <tony@git-pull.com>"]
+packages = [
+    { include = "pkg" }
+]
+include = [
+    { path = "tests", format = "sdist" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
